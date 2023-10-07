@@ -1,14 +1,12 @@
 # Monitor Applications and Server Resources
 
-October 1, 2023
+October 7, 2023
 
 By:  Annie V Lam - Kura Labs
 
 # Purpose
 
-Monitor application and server resources using AWS CloudWatch.
-
-Previously, our CI/CD pipeline was automated using Jenkins and leverages GitHub webhooks for seamless integration. In this deployment, a Virtual Private Cloud (VPC), availability zones, and subnets are configured to create a secure and scalable network architecture.  We also integrated CloudWatch agents with our EC2 instances to allow us to collect valuable performance metrics and logs.  Also, instead of using the Elastic Beanstalk CLI for web application deployment, we've opted for GUnicorn, which provides a robust HTTP server and deployed to Nginx, which serves efficient and reliable web content.
+After the deployment of the new version of the URL Shortener application, the QA engineer initiated 14,000 requests to the server, and unfortunately, 500 of these requests encountered failures.
 
 ## Step #1 Diagram the VPC Infrastructure and the CI/CD Pipeline
 
