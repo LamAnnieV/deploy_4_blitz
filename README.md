@@ -36,7 +36,7 @@ We were notified that we did not pass the QA testing, out of the 14,000 requests
 
 ![QA Testing CPU over 100%](images/QA_Test_Notification.png)
 
-# Analysis
+# SRE TESTING and ANALYSIS
 
 Sending 14,000 requests to our server while running the script sudo nice -n -20 stress-ng --cpu 2 has severely strained our server.  The script sudo nice -n -20 stress-ng --cpu 2 sends workload to two of our cpus to test for resiliency.  
 
@@ -44,8 +44,8 @@ Sending 14,000 requests to our server while running the script sudo nice -n -20 
 
 Here is an example of CPU usage on a t2.medium instance that has 2 CPUs running the stress test, sudo nice -n -20 stress-ng --cpu 2:
 
-![Deploy 4 User 0 Stress Test](images/Deploy_4_user0_Stress_Test.png)
 ![Deploy 4 User 1 Stress Test](images/Deploy_4_user1_Stress_Test.png)
+![Deploy 4 User 0 Stress Test](images/Deploy_4_user0_Stress_Test.png)
 
 When running the stress test, sudo nice -n -20 stress-ng --cpu 2, in a T2.medium instance with no request and no Jenkins builds being run, both CPUs were already running at 99% capacity.  Two CPUs are not enough.  We would need to increase our CPU.  The next level up is 4 CPUs and the one after is 8 CPUs.  As we only use one server to handle all three tiers, the Web Tier, the Application Tier, and the Data Tier, 4 CPUs may also be stretching it.  
 
