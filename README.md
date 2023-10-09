@@ -16,8 +16,15 @@ After deploying the new version of the URL Shortener application, the QA enginee
 
 **Configured Nginx in order for it to receive more request**
 
+Updated from "worker_processes auto" to "worker_processes 8"
+
+Updated from "worker_connections 768" to "worker_connections 2000"
+
+Uncomment "Multi_accept on;
+
 ![Configure Nginx](images/Nginx_config_1.png)
 
+Uncomment all lines with "gzip.."
 ![Configure Nginx 2](images/Nginx_config_2.png)
 
 **Installed a package for stress testing**
@@ -51,7 +58,7 @@ When running the stress test, sudo nice -n -20 stress-ng --cpu 2, in a t2.medium
 
 **SRE TESTING for t2.xlarge**
 
-Here is an example of CPU usage on a t2.medium instance that has 2 CPUs running the stress test, sudo nice -n -20 stress-ng --cpu 2:
+Here is an example of CPU usage on a t2.xlarge instance that has 4 CPUs running the stress test, sudo nice -n -20 stress-ng --cpu 2, and running multiple Jenkins builds:
 
 ![t2.xlarge Stress Test & Jenkins Build CPU 1](images/CPU_1_Deploy.png)
 ![t2.xlarge Stress Test & Jenkins Build CPU 2](images/CPU_2_Deploy.png)
@@ -69,8 +76,31 @@ When running the stress test, sudo nice -n -20 stress-ng --cpu 2, and running mu
 
 
 
+![t2.2xlarge Stress Test & Jenkins Build CPU 1](images/CPU_1_all.png)
 
+CPU_7_all.png
 
+**SRE TESTING for t2.2xlarge**
+
+Here is an example of CPU usage on a t2.2xlarge instance that has 8 CPUs running the stress test, sudo nice -n -20 stress-ng --cpu 2 and running multiple Jenkins builds:
+
+All of the CPUs are "IN ALARM"
+
+![All of the CPUs are "IN ALARM":](images/t2.2xlarg_all_in_alarm.png)
+
+Two of the 8 CPUs are at 100% capacity, the other 6 CPUs usage are between 17% to 23% 
+Individual CPU status:
+
+![t2.2xlarge Stress Test & Jenkins Build CPU 1](images/CPU_1_all.png)
+![t2.2xlarge Stress Test & Jenkins Build CPU 2](images/CPU_2_all.png)
+![t2.2xlarge Stress Test & Jenkins Build CPU 3](images/CPU_3_all.png)
+![t2.2xlarge Stress Test & Jenkins Build CPU 4](images/CPU_4_all.png)
+![t2.2xlarge Stress Test & Jenkins Build CPU 5](images/CPU_5_all.png)
+![t2.2xlarge Stress Test & Jenkins Build CPU 6](images/CPU_6_all.png)
+![t2.2xlarge Stress Test & Jenkins Build CPU 7](images/CPU_7_all.png)
+![t2.2xlarge Stress Test & Jenkins Build CPU 8](images/CPU_8_all.png)
+
+When running the stress test, sudo nice -n -20 stress-ng --cpu 2, and running multiple Jenkins builds at the same time in a t2.xlarge instance, three of the CPUs were running at about 75% capacity or more and one CPU is running at about 14%. Under the current conditions, having 4 CPUs may not be able to handle also handle the stress of a minimum 14,000 requests. 
 
 
 ## Step #1 Diagram the VPC Infrastructure and the CI/CD Pipeline
