@@ -6,7 +6,7 @@ By:  Annie V Lam - Kura Labs
 
 # Purpose
 
-After deploying the new version of the URL Shortener application, the QA engineer initiated 14,000 requests to the server; unfortunately, 500 of these requests encountered failures.
+After deploying the new version of the URL Shortener application, the QA engineer initiated 14,000 requests to the server; unfortunately, 510 of these requests encountered failures.
 
 ## Configuration for Testing
 
@@ -39,7 +39,7 @@ This script stress tests two CPUs with high-priority
 
 ## Result of QA Engineer's 14,000 requests while running sudo nice -n -20 stress-ng --cpu 2
 
-We have been notified that our recent QA testing results were not as we had hoped. Out of the 14,000 requests made, 500 of them unfortunately failed. Additionally, we received an email notification from Cloudwatch indicating that our CPU usage had reached 100%.
+We have been notified that our recent QA testing results were not as we had hoped. Out of the 14,000 requests made, 510 of them unfortunately failed. Additionally, we received an email notification from Cloudwatch indicating that our CPU usage had reached 100%.
 
 ![QA Testing CPU over 100%](images/QA_Test_Notification.png)
 
