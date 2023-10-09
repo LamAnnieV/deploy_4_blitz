@@ -8,6 +8,29 @@ By:  Annie V Lam - Kura Labs
 
 After the deployment of the new version of the URL Shortener application, the QA engineer initiated 14,000 requests to the server, and unfortunately, 500 of these requests encountered failures.
 
+# Configuration for Testing
+
+Updated the application.py file to include logging
+
+![Add Logging](images/Application_py_add_logging.png)
+
+
+Configured Nginx in order for it to receive more request
+
+![Congigure Nginx](Nginx_config_1.png)
+![Congigure Nginx 2](Nginx_config_2.png)
+
+
+sudo apt install stress-ng
+Addeded a shell script that contain the code:  sudo nice -n -20 stress-ng --cpu 2
+
+Reconfiguring Nginx:
+
+
+
+
+
+
 ## Step #1 Diagram the VPC Infrastructure and the CI/CD Pipeline
 
 ![Deployment Diagram](Images/Deployment_Pipeline.png)
