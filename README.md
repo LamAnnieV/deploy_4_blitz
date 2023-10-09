@@ -14,11 +14,11 @@ Updated the application.py file to include logging
 
 ![Add Logging](images/Application_py_add_logging.png)
 
-
 Configured Nginx in order for it to receive more request
 
-![Congigure Nginx](Nginx_config_1.png)
-![Congigure Nginx 2](Nginx_config_2.png)
+![Configure Nginx](images/Nginx_config_1.png)
+
+![Configure Nginx 2](images/Nginx_config_2.png)
 
 
 sudo apt install stress-ng
