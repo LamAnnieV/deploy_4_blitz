@@ -6,25 +6,37 @@ By:  Annie V Lam - Kura Labs
 
 # Purpose
 
-After the deployment of the new version of the URL Shortener application, the QA engineer initiated 14,000 requests to the server, and unfortunately, 500 of these requests encountered failures.
+After deploying the new version of the URL Shortener application, the QA engineer initiated 14,000 requests to the server; unfortunately, 500 of these requests encountered failures.
 
 # Configuration for Testing
 
-Updated the application.py file to include logging
+**Updated the application.py file to include logging**
 
 ![Add Logging](images/Application_py_add_logging.png)
 
-Configured Nginx in order for it to receive more request
+**Configured Nginx in order for it to receive more request**
 
 ![Configure Nginx](images/Nginx_config_1.png)
 
 ![Configure Nginx 2](images/Nginx_config_2.png)
 
+**Installed a package for stress testing**
 
 sudo apt install stress-ng
-Addeded a shell script that contain the code:  sudo nice -n -20 stress-ng --cpu 2
 
-Reconfiguring Nginx:
+**Added a shell script with a code to stress test**
+
+sudo nice -n -20 stress-ng --cpu 2
+
+This script stress tests two CPUs with high-priority
+
+# Result of QA Engineer's 14,000 requests while running sudo nice -n -20 stress-ng --cpu 2
+
+We were notified that we did not pass the QA testing, out of the 14,000 requests 500 requests failed.  We also received an email notification that our CPU usage was at 100%.
+
+![QA Testing CPU over 100%](images/QA_Test_Notification.png)
+
+
 
 
 
