@@ -74,11 +74,11 @@ When running the stress test, sudo nice -n -20 stress-ng --cpu 2, and running mu
 
 ## Implemented Solution
 
-
-
-![t2.2xlarge Stress Test & Jenkins Build CPU 1](images/CPU_1_all.png)
-
-CPU_7_all.png
+Created a new instance with t2.2xlarge instance type, please reference [deployment_4](https://github.com/LamAnnieV/deployment_4.git) on how to set up the instance and the required installs for the URL Shortener application.  Please note:
+-  the instance type in deployment_4 was t2.medium, for this instance, we would need t2.2xlarge
+-  this instance will be placed in the subnet "deploy_4-subnet-public2"
+-  port 8000 will be removed from the security group
+-  after the successful testing, the instance t2.medium instance type will be terminated.  
 
 **SRE TESTING for t2.2xlarge**
 
@@ -100,8 +100,17 @@ Individual CPU status:
 ![t2.2xlarge Stress Test & Jenkins Build CPU 7](images/CPU_7_all.png)
 ![t2.2xlarge Stress Test & Jenkins Build CPU 8](images/CPU_8_all.png)
 
-When running the stress test, sudo nice -n -20 stress-ng --cpu 2, and running multiple Jenkins builds at the same time in a t2.xlarge instance, three of the CPUs were running at about 75% capacity or more and one CPU is running at about 14%. Under the current conditions, having 4 CPUs may not be able to handle also handle the stress of a minimum 14,000 requests. 
+The Jenkins Build ran successfully:
 
+![Jenkins Build](images/Jenkins_.png)
+
+The URL Shortener is no longer able to launch from port 8000:
+
+![Launch URL](images/Port8000.png)
+
+The URL Shortener launched from port 5000:
+
+![Launch URL](images/Port5000.png)
 
 ## Step #1 Diagram the VPC Infrastructure and the CI/CD Pipeline
 
