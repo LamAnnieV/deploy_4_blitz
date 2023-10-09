@@ -8,7 +8,7 @@ By:  Annie V Lam - Kura Labs
 
 After deploying the new version of the URL Shortener application, the QA engineer initiated 14,000 requests to the server; unfortunately, 500 of these requests encountered failures.
 
-# Configuration for Testing
+## Configuration for Testing
 
 **Updated the application.py file to include logging**
 
@@ -30,13 +30,13 @@ sudo nice -n -20 stress-ng --cpu 2
 
 This script stress tests two CPUs with high-priority
 
-# Result of QA Engineer's 14,000 requests while running sudo nice -n -20 stress-ng --cpu 2
+## Result of QA Engineer's 14,000 requests while running sudo nice -n -20 stress-ng --cpu 2
 
 We were notified that we did not pass the QA testing, out of the 14,000 requests 500 requests failed.  We also received an email notification that our CPU usage was at 100%.
 
 ![QA Testing CPU over 100%](images/QA_Test_Notification.png)
 
-# SRE TESTING and ANALYSIS
+## SRE TESTING and ANALYSIS
 
 Sending 14,000 requests to our server while running the script sudo nice -n -20 stress-ng --cpu 2 has severely strained our server.  The script sudo nice -n -20 stress-ng --cpu 2 sends workload to two of our cpus to test for resiliency.  
 
@@ -47,7 +47,7 @@ Here is an example of CPU usage on a t2.medium instance that has 2 CPUs running 
 ![Deploy 4 User 1 Stress Test](images/Deploy_4_user1_Stress_Test.png)
 ![Deploy 4 User 0 Stress Test](images/Deploy_4_user0_Stress_Test.png)
 
-When running the stress test, sudo nice -n -20 stress-ng --cpu 2, in a T2.medium instance with no request and no Jenkins builds being run, both CPUs were already running at 99% capacity.  Two CPUs are not enough.  We would need to increase our CPU.  The next level up is 4 CPUs and the one after is 8 CPUs.  As we only use one server to handle all three tiers, the Web Tier, the Application Tier, and the Data Tier, 4 CPUs may also be stretching it.  
+When running the stress test, sudo nice -n -20 stress-ng --cpu 2, in a t2.medium instance with no request and no Jenkins builds being run, both CPUs were already running at 99% capacity.  Two CPUs are not enough.  We would need to increase our CPU.  The next level up is 4 CPUs and the one after is 8 CPUs.  As we only use one server to handle all three tiers, the Web Tier, the Application Tier, and the Data Tier, 4 CPUs may also be stretching it.  
 
 **SRE TESTING for t2.xlarge**
 
@@ -58,8 +58,14 @@ Here is an example of CPU usage on a t2.medium instance that has 2 CPUs running 
 ![t2.xlarge Stress Test & Jenkins Build CPU 3](images/CPU_3_Deploy.png)
 ![t2.xlarge Stress Test & Jenkins Build CPU 4](images/CPU_4_Deploy.png)
 
-When running the stress test, sudo nice -n -20 stress-ng --cpu 2, in a T2.medium instance with no request and no Jenkins builds being run, both CPUs were already running at 99% capacity.  Two CPUs are not enough.  We would need to increase our CPU.  The next level up is 4 CPUs and the one after is 8 CPUs.  As we only use one server to handle all three tiers, the Web Tier, the Application Tier, and the Data Tier, 4 CPUs may also be stretching it.  
+When running the stress test, sudo nice -n -20 stress-ng --cpu 2, and running multiple Jenkins builds at the same time in a t2.xlarge instance, three of the CPUs were running at about 75% capacity or more and one CPU is running at about 14%. Under the current conditions, having 4 CPUs may not be able to handle also handle the stress of a minimum 14,000 requests. 
 
+## Recommendations
+
+1.  Increase the number of CPUs to 8.  There are a couple of options.  The t2.2xlarge or the c5.2xlarge.  The difference is that one has 32 GiB and the other has 16 GiB of memory respectively.  As this instance also hosts our data tier, the 32 GiB is recommended.
+2.  Separate out the application tier and data tier into another instance.  We can put the web tier on an instance with 4 CPUs and the application and data tier on an instance with 2 CPUs.  This will have the benefit of making the application and web tier more secure.  However, having an additional instance will incur additional costs.  
+
+## Implemented Solution
 
 
 
