@@ -116,7 +116,7 @@ The URL Shortener launched from port 5000:
 
 ![Launch URL](images/Port5000.png)
 
-## Step #1 Diagram the VPC Infrastructure and the CI/CD Pipeline
+## Diagram the VPC Infrastructure and the CI/CD Pipeline
 
-![Deployment Diagram](Images/Deployment_Pipeline.png)
+![Deployment Diagram](images/Deployment_Pipeline.png)
 
