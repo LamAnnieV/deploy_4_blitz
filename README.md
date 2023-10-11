@@ -124,7 +124,7 @@ The URL Shortener is only accessible via port 5000:
 
 ## Conclusion
 
-After horizontally scaling up from a t2.medium to a t2.2xlarge instance, the QA engineer retested the URL shortener application. They conducted a stress test using the command 'sudo nice -n -20 stress-ng --cpu 2' and sent 14,000 GET requests with a ramp-up speed of 10 seconds to our URL shortener. The result: zero errors were observed.
+After vertically scaling up from a t2.medium to a t2.2xlarge instance, the QA engineer retested the URL shortener application. They conducted a stress test using the command 'sudo nice -n -20 stress-ng --cpu 2' and sent 14,000 GET requests with a ramp-up speed of 10 seconds to our URL shortener. The result: zero errors were observed.
 
 ## Diagram the VPC Infrastructure and the CI/CD Pipeline
 
