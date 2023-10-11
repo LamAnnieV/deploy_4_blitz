@@ -128,6 +128,6 @@ After horizontally scaling up from a t2.medium to a t2.2xlarge instance, the QA 
 
 ## Diagram the VPC Infrastructure and the CI/CD Pipeline
 
-![Deployment Diagram]()
+![Deployment Diagram](images/Deployment_Pipeline.png)
 
 Note: ChatGPT was used to enhance the quality and clarity of this documentation
