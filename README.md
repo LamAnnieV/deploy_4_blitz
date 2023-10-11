@@ -6,7 +6,7 @@ By:  Annie V Lam - Kura Labs
 
 # Purpose
 
-After deploying the new version of the URL Shortener application, the QA engineer initiated 14,000 requests to the server; unfortunately, 510 of these requests encountered failures.
+After deploying the new version of the URL Shortener application, the Quality Assurance (QA) engineer initiated 14,000 requests to the server; unfortunately, 510 of these requests encountered failures.
 
 ## Configuration for Testing
 
@@ -14,7 +14,7 @@ After deploying the new version of the URL Shortener application, the QA enginee
 
 ![Add Logging](images/Application_py_add_logging.png)
 
-**Configured Nginx in order for it to receive more request**
+**Configured Nginx in order for it to receive more requests**
 
 Updated from "worker_processes auto" to "worker_processes 8"
 
@@ -45,7 +45,7 @@ We have been notified that our recent QA testing results were not as we had hope
 
 ## SRE TESTING and ANALYSIS
 
-Sending 14,000 requests to our server while executing the script sudo nice -n -20 stress-ng --cpu 2 has placed a significant strain on our server. This script is designed to allocate a workload to two of our CPUs in order to test their resiliency.
+Sending 14,000 requests to our server while executing the script sudo nice -n -20 stress-ng --cpu 2 has significantly strained our server. This script is designed to allocate a workload to two of our CPUs in order to test their resiliency.
 
 **SRE TESTING for t2.medium**
 
@@ -54,9 +54,9 @@ Here is an illustrative example of CPU usage on a t2.medium instance, which util
 ![Deploy 4 User 1 Stress Test](images/Deploy_4_user1_Stress_Test.png)
 ![Deploy 4 User 0 Stress Test](images/Deploy_4_user0_Stress_Test.png)
 
-During the execution of the stress test, specifically the command sudo nice -n -20 stress-ng --cpu 2, within a t2.medium instance where no external requests or Jenkins builds were in progress, we observed both CPUs already operating at 99% capacity. This indicates that our current configuration with two CPUs is insufficient to handle the load.
+During the execution of the stress test, specifically the command sudo nice -n -20 stress-ng --cpu 2, within a t2.medium instance where no external requests or Jenkins builds were in progress, we observed both CPUs already operating at 99% capacity. This indicates that our current configuration with two CPUs cannot handle the load.
 
-To address this issue, we should consider upgrading our CPU capacity. The next available options are 4 CPUs and 8 CPUs. However, given that we rely on a single server to manage all three tiers – the Web Tier, the Application Tier, and the Data Tier – even 4 CPUs may potentially be pushing the limits of our server's capabilities. Further evaluation and load testing may be necessary to determine the optimal CPU configuration for our setup.
+To address this issue, we should consider upgrading our CPU capacity. The next available options are 4 CPUs and 8 CPUs. However, given that we rely on a single server to manage all three tiers – the Web Tier, the Application Tier, and the Data Tier – even 4 CPUs may be pushing the limits of our server's capabilities. Further evaluation and load testing may be necessary to determine the optimal CPU configuration for our setup.
 
 **SRE TESTING for t2.xlarge**
 
@@ -121,6 +121,10 @@ The URL Shortener can no longer be launched from port 8000:
 The URL Shortener is only accessible via port 5000:
 
 ![Launch URL](images/Port5000.png)
+
+## Conclusion
+
+After horizontally scaling up from a t2.medium to a t2.2xlarge instance, the QA engineer retested the URL shortener application. They conducted a stress test using the command 'sudo nice -n -20 stress-ng --cpu 2' and sent 14,000 GET requests with a ramp-up speed of 10 seconds to our URL shortener. The result: zero errors were observed.
 
 ## Diagram the VPC Infrastructure and the CI/CD Pipeline
 
